@@ -1,0 +1,378 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Site keywords here">
+    <meta name="description" content="#">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fav Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slickslider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+
+    <!-- SweetAlert CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <!-- Bootstrap DataTable CSS -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/css/dataTables.bootstrap5.min.css">
+
+
+        <style>
+            .nftmax-header__author-title {
+                color: #8f97a1;
+            }
+    
+            .nftmax-card-hover:hover .nftmax-svg path,
+            .nftmax-card-hover:hover .nftmax-header__author-title {
+                fill: #5356FB;
+                color: #5356FB;
+            }
+    
+    
+            #dropdownMenu {
+                display: none;
+                position: absolute;
+                background-color: white;
+                border: 1px solid #5356FB;
+                top: 100%;
+                left: 0;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+                border-radius: 5px;
+                width: 110px;
+                min-width: 0;
+            }
+    
+    
+            .dropdown-menu::before {
+                content: '';
+                position: absolute;
+                top: -8px;
+                right: 10px;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 8px solid #5356FB;
+            }
+    
+    
+            #dropdownMenu a {
+                display: flex;
+                align-items: center;
+    
+            }
+    
+    
+            .bi-arrow-up-left-square-fill {
+                margin-right: 8px;
+                color: #5356FB;
+            }
+    
+            .nftmax-header__author .card {
+                background-color: #f4f4f9;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                width: auto;
+    
+            }
+    
+            .dataTables_wrapper .dataTables_paginate {
+                float: right;
+                text-align: right;
+                padding-top: 0.85em;
+    
+            }
+        </style>
+</head>
+
+<body>
+
+    <!-- <div class="body-bg" style="background-image:url('img/body-bg.jpg')"> -->
+
+    <div class="body-bg">
+        <!-- NFTMax Admin Menu -->
+        <div class="nftmax-smenu">
+            <!-- Admin Menu -->
+            {% include 'sidebar/sidebar.html' %}
+            <!-- End Admin Menu -->
+        </div>
+        <!-- End NFTMax Admin Menu -->
+
+        <!-- Logout Modal  -->
+        <!-- <div class="nftmax-preview__modal modal fade" id="logout_modal" tabindex="-1" aria-labelledby="logoutmodal" aria-hidden="true" >
+                    <div class="modal-dialog modal-dialog-centered nftmax-close__modal-close">
+                        <div class="modal-content nftmax-preview__modal-content">
+                            <div class="modal-header nftmax__modal__header">
+                                <h4 class="modal-title nftmax-preview__modal-title" id="logoutmodal">Confirm</h4>
+                                <button type="button" class="nftmax-preview__modal--close btn-close" data-bs-dismiss="modal" aria-label="Close"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36 16.16C36 17.4399 36 18.7199 36 20.0001C35.7911 20.0709 35.8636 20.2554 35.8385 20.4001C34.5321 27.9453 30.246 32.9248 22.9603 35.2822C21.9006 35.6251 20.7753 35.7657 19.6802 35.9997C18.4003 35.9997 17.1204 35.9997 15.8401 35.9997C15.5896 35.7086 15.2189 35.7732 14.9034 35.7093C7.77231 34.2621 3.08728 30.0725 0.769671 23.187C0.435002 22.1926 0.445997 21.1199 0 20.1599C0 18.7198 0 17.2798 0 15.8398C0.291376 15.6195 0.214408 15.2656 0.270759 14.9808C1.71321 7.69774 6.02611 2.99691 13.0428 0.700951C14.0118 0.383805 15.0509 0.386897 15.9999 0C17.2265 0 18.4532 0 19.6799 0C19.7156 0.124041 19.8125 0.136067 19.9225 0.146719C27.3 0.868973 33.5322 6.21922 35.3801 13.427C35.6121 14.3313 35.7945 15.2484 36 16.16ZM33.011 18.0787C33.0433 9.77105 26.3423 3.00309 18.077 2.9945C9.78479 2.98626 3.00344 9.658 2.98523 17.8426C2.96667 26.1633 9.58859 32.9601 17.7602 33.0079C26.197 33.0577 32.9787 26.4186 33.011 18.0787Z" fill="#374557" fill-opacity="0.6"></path><path d="M15.9309 18.023C13.9329 16.037 12.007 14.1207 10.0787 12.2072C9.60071 11.733 9.26398 11.2162 9.51996 10.506C9.945 9.32677 11.1954 9.0811 12.1437 10.0174C13.9067 11.7585 15.6766 13.494 17.385 15.2879C17.9108 15.8401 18.1633 15.7487 18.6375 15.258C20.3586 13.4761 22.1199 11.7327 23.8822 9.99096C24.8175 9.06632 26.1095 9.33639 26.4967 10.517C26.7286 11.2241 26.3919 11.7413 25.9133 12.2178C24.1757 13.9472 22.4477 15.6855 20.7104 17.4148C20.5228 17.6018 20.2964 17.7495 20.0466 17.9485C22.0831 19.974 24.0372 21.8992 25.9689 23.8468C26.9262 24.8119 26.6489 26.1101 25.4336 26.4987C24.712 26.7292 24.2131 26.3441 23.7455 25.8757C21.9945 24.1227 20.2232 22.3892 18.5045 20.6049C18.0698 20.1534 17.8716 20.2269 17.4802 20.6282C15.732 22.4215 13.9493 24.1807 12.1777 25.951C11.7022 26.4262 11.193 26.7471 10.4738 26.4537C9.31345 25.9798 9.06881 24.8398 9.98589 23.8952C11.285 22.5576 12.6138 21.2484 13.9387 19.9355C14.5792 19.3005 15.2399 18.6852 15.9309 18.023Z" fill="#374557" fill-opacity="0.6"></path></svg></button>
+                            </div>
+                            <div class="modal-body nftmax-modal__body modal-body nftmax-close__body">
+                                <div class="nftmax-preview__close">
+                                    <div class="nftmax-preview__close-img"><img src="img/close.png" alt="#"></div>
+                                    <h2 class="nftmax-preview__close-title">Are you sure you want to Logout <span>NETMAX admin Penal?</span></h2>
+                                    <div class="nftmax__item-button--group">
+                                        <button class="nftmax__item-button--single nftmax-btn nftmax-btn__bordered bg radius " type="submit">Yes Logout 
+                                        </button>																
+                                        <button class="nftmax__item-button--single nftmax-btn nftmax-btn__bordered--plus radius" data-bs-dismiss="modal"><span class="ntfmax__btn-textgr">Not Now</span> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+        <!-- End Logout Modal -->
+
+        <!-- Connect to Wallet -->
+
+        <!-- End Connect to Wallet -->
+
+        <!-- Start Header -->
+        <header class="nftmax-header">
+            <div class="container">
+                <div class="row g-50">
+                    <div class="col-12">
+                        <!-- Dashboard Header -->
+                        <div class="nftmax-header__inner d-flex justify-content-between align-items-center">
+                            <!-- Left Section -->
+                            <div class="nftmax__sicon close-icon d-xl-none">
+                                <!-- <img src="img/menu-toggle.svg" alt="Menu Toggle"> -->
+                                <img src="{% static 'img/menu-toggle.svg' %}" alt="Menu Toggle">
+                            </div>
+                            <div class="nftmax-header__left">
+                                <!-- Placeholder for additional content -->
+                                <div class="nftmax-header__form">
+                                    <!-- <form class="nftmax-header__form-inner" action="#">
+                                            <button class="search-btn" type="submit">
+                                                <img src="img/search.png" alt="#">
+                                                <img src="{% static 'img/menu-toggle.svg' %}"  alt="Menu Toggle">
+
+                                            </button>
+                                            <input name="s" value="" type="text" placeholder="Search items, collections...">
+                                        </form> -->
+                                </div>
+                            </div>
+                            <!-- Right Section -->
+                            <div class="nftmax-header__right">
+                                <div class="nftmax-header__group d-flex align-items-center">
+                                    <!-- Author Section -->
+                                    <div class="nftmax-header__author d-flex align-items-center">
+                                        <!-- Card with icon on the left and text on the right -->
+                                        <div class=" d-flex ms-4 nftmax-card-hover" onclick="toggleDropdown()">
+                                            <div class="d-flex align-items-center p-2">
+                                                <!-- SVG Icon on the left -->
+                                                <div class="me-0 nftmax-svg hover-effect">
+                                                    <ul class="menu-bar__one">
+                                                        <li><a href="#"><span class="menu-bar__text">
+                                                                    <span class="nftmax-menu-icon nftmax-svg-icon__v10">
+                                                                        <svg class="nftmax-svg-icon" viewBox="0 0 15 20"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <path
+                                                                                d="M10.8692 11.6667H4.13085C3.03569 11.668 1.98576 12.1036 1.21136 12.878C0.436961 13.6524 0.00132319 14.7023 0 15.7975V20H15.0001V15.7975C14.9987 14.7023 14.5631 13.6524 13.7887 12.878C13.0143 12.1036 11.9644 11.668 10.8692 11.6667Z">
+                                                                            </path>
+                                                                            <path
+                                                                                d="M7.49953 10C10.261 10 12.4995 7.76145 12.4995 5.00002C12.4995 2.23858 10.261 0 7.49953 0C4.7381 0 2.49951 2.23858 2.49951 5.00002C2.49951 7.76145 4.7381 10 7.49953 10Z">
+                                                                            </path>
+                                                                        </svg>
+                                                                    </span>
+                                                                </span></a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Title Text on the right -->
+                                                <div>
+                                                    <h6 class="nftmax-header__author-title">{{ request.user.username }}</h6>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- Dropdown Menu -->
+                                        <div id="dropdownMenu" class="dropdown-menu">
+                                            <a href="{% url 'login' %}" class="dropdown-item d-flex justify-content-end">
+                                                <!-- Your provided logout SVG icon with margin-right and aligned to the end -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-arrow-up-left-square-fill mr-2"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm8.096 10.803L6 6.707v2.768a.5.5 0 0 1-1 0V5.5a.5.5 0 0 1 .5-.5h3.975a.5.5 0 1 1 0 1H6.707l4.096 4.096a.5.5 0 1 1-.707.707" />
+                                                </svg>
+                                                Logout
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- End Header -->
+
+        <!-- NFTmax Dashboard -->
+        <section class="nftmax-adashboard nftmax-show">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-9 col-12 nftmax-main__column">
+                        <div class="nftmax-body">
+                            <!-- Dashboard Inner -->
+                            <div class="nftmax-dsinner">
+                                <!-- Dashboard Slider -->
+
+                                <div class="container-fluid mg-top-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="charts-main mg-top-40">
+                                                <div class="trending-action">
+                                                    <h2 class="trending-action__heading" style="margin-bottom: 0;">File Upload</h2>
+                                                </div>
+                                                <div class="card mt-3">
+                                                    <div class="card-body">
+                                                        {% if messages %}
+                                                            <div id="sweet-alert" style="display: none;">
+                                                                {% for message in messages %}
+                                                                    {% if message.tags == 'error' %}
+                                                                        <span class="error-message">{{ message }}</span>
+                                                                    {% else %}
+                                                                        <span class="success-message">{{ message }}</span>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% endif %}
+                                                        
+                                                        <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+                                                            {% csrf_token %}
+                                                            <div class="mb-3">
+                                                                <input class="form-control" type="file" id="formFile" name="file" required accept=".csv, .tsv, .xlsx, .xls">
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="submit" class="btn text-white" style="background-color:#9850f8;">Upload</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                            </div>
+                            <!-- End Dashboard Inner -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End NFTmax Dashboard -->
+
+    </div>
+
+    <!-- Jquery JS -->
+    <!-- <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-migrate.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/slickslider.min.js"></script>
+        <script src="js/charts.js"></script>
+        <script src="js/countdown.min.js"></script>
+        <script src="js/final-countdown.min.js"></script>
+        <script src="js/circle-progress.min.js"></script>
+        <script src="js/main.js"></script> -->
+
+
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
+
+    <script src="{% static 'jquery-migrate.js' %}"></script>
+    <script src="{% static 'slickslider.min.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdownMenu");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        window.onclick = function (event) {
+            var dropdown = document.getElementById("dropdownMenu");
+            if (!event.target.matches('.nftmax-card-hover') && !event.target.matches('.nftmax-card-hover *')) {
+                dropdown.style.display = "none";
+            }
+        };
+    </script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const alertDiv = document.getElementById('sweet-alert');
+        if (alertDiv) {
+            const successMessages = alertDiv.getElementsByClassName('success-message');
+            const errorMessages = alertDiv.getElementsByClassName('error-message');
+
+            if (successMessages.length > 0) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: successMessages[0].innerText,
+                    confirmButtonText: 'OK',
+                    backdrop: false,
+    
+                });
+            }
+
+            if (errorMessages.length > 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: errorMessages[0].innerText,
+                    confirmButtonText: 'OK',
+                    backdrop: false,
+    
+                });
+            }
+        }
+    });
+</script>
+
+
+
+</body>
+
+</html>

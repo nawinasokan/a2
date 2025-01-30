@@ -62,14 +62,14 @@
 	padding-top: 32px;
 	padding-right: 22px;
 	transition: all 0.3s ease;
-	box-shadow: 1px 0 5px #cc41fc; /* Right-side shadow with custom color */
+	box-shadow: 1px 0 5px #cc41fc; 
 }
 
 
-/* .admin-menu__title {
+.admin-menu__title {
 	font-size: 20px;
 	margin-bottom: 12px;
-} */
+}
 
 
 .logo {

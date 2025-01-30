@@ -1,0 +1,190 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Site keywords here">
+    <meta name="description" content="#">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Fav Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slickslider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+
+    <style>
+        body {
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .auth-form-light {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 500px;  
+            height: 500px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transform: translateX(-150px); 
+        }
+
+        .brand-logo img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .auth-form-light h6 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            height: 50px;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 25px;
+            padding: 12px 0;
+        }
+
+        .input-group-append {
+            cursor: pointer;
+        }
+
+        .password-toggle-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-toggle-icon i {
+            font-size: 18px;
+            color: #000;
+        }
+
+        .mt-3 {
+            margin-top: 20px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth px-0">
+                <div class="row w-100 mx-0">
+                    <div class="col-lg-4 mx-auto">
+                        <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                            <!-- <div class="row mb-4">
+                                <div class="col-md-12 text-center">
+                                    <div class="brand-logo"> -->
+                                        <!-- Add your logo here -->
+                                        <!-- <img src="images/logo/jaalogo.png" alt="logo"> -->
+                                    <!-- </div>
+                                </div>
+                            </div> -->
+
+                            <h6 class="font-weight-light text-center">Sign in to continue.</h6>
+                            {% if messages %}
+                            <div class="text-danger mt-3">
+                                {% for message in messages %}
+                                    <p class="mb-0">{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %} 
+                            <form method="POST" class="pt-3">
+                              {% csrf_token %}
+                              <div class="form-group">
+                                  <label for="username">User Name:</label>
+                                  <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="User Name">
+                              </div>
+                              <div class="form-group position-relative">
+                                  <label for="password">Password:</label>
+                                  <div class="input-group">
+                                      <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password">
+                                      <div class="input-group-append">
+                                          <span class="input-group-text password-toggle-icon" onclick="togglePasswordVisibility()">
+                                              <i class="fa fa-eye" aria-hidden="true" style="font-weight: bold; color: #000;"></i>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+
+                               
+                              <div class="mg-top-40">
+                                  <button type="submit" class="btn btn-block btn-lg font-weight-medium"
+                                          style="background-color: #924bfb; color: white;">SIGN IN</button>
+                              </div>
+                          </form>
+                          
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
+    <script src="{% static 'jquery-migrate.js' %}"></script>
+    <script src="{% static 'slickslider.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> <!-- Optional: jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> <!-- Optional: Popper.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Optional: Bootstrap JS -->
+
+</body>
+
+<script>
+ function togglePasswordVisibility() {
+    var passwordField = document.getElementById("password");
+    var icon = document.querySelector(".password-toggle-icon i");
+
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        passwordField.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
+</script>
+
+
+</html>

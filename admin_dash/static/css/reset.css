@@ -97,7 +97,6 @@ h6,.nft-h6 {
 	line-height:26px;
 }
 p {
-	color: #878F9A;
 	line-height: 28px;
 	margin: 0;
 	font-weight: 400;
@@ -208,10 +207,10 @@ input::-ms-input-placeholder {
 	box-shadow: 0 9px 95px 0 #0000000d;
 }
 .nftmax-smenu.nftmax-close {
-	width: 70px;
+	width: 60px;
 }
 .nftmax-smenu, .nftmax-adashboard, .nftmax-header {
-	transition: all 0.4s;
+	transition: all 0.3s;
 }
 .nftmax-logo__icon {
 	max-width: 40px;

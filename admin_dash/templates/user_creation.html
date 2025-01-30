@@ -1,0 +1,647 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Site keywords here">
+    <meta name="description" content="#">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fav Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slickslider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+
+    <!-- SweetAlert CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <!-- Bootstrap DataTable CSS -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/css/dataTables.bootstrap5.min.css">
+
+
+        <style>
+            .nftmax-header__author-title {
+                color: #8f97a1;
+            }
+    
+            .nftmax-card-hover:hover .nftmax-svg path,
+            .nftmax-card-hover:hover .nftmax-header__author-title {
+                fill: #5356FB;
+                color: #5356FB;
+            }
+    
+    
+            #dropdownMenu {
+                display: none;
+                position: absolute;
+                background-color: white;
+                border: 1px solid #5356FB;
+                top: 100%;
+                left: 0;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+                border-radius: 5px;
+                width: 110px;
+                min-width: 0;
+            }
+    
+    
+            .dropdown-menu::before {
+                content: '';
+                position: absolute;
+                top: -8px;
+                right: 10px;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 8px solid #5356FB;
+            }
+    
+    
+            #dropdownMenu a {
+                display: flex;
+                align-items: center;
+    
+            }
+    
+    
+            .bi-arrow-up-left-square-fill {
+                margin-right: 8px;
+                color: #5356FB;
+            }
+    
+            .nftmax-header__author .card {
+                background-color: #f4f4f9;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                width: auto;
+    
+            }
+    
+            .dataTables_wrapper .dataTables_paginate {
+                float: right;
+                text-align: right;
+                padding-top: 0.85em;
+    
+            }
+        </style>
+</head>
+
+<body>
+
+    <div class="body-bg">
+        <!-- NFTMax Admin Menu -->
+        <div class="nftmax-smenu">
+            <!-- Admin Menu -->
+            {% include 'sidebar/sidebar.html' %}
+            <!-- End Admin Menu -->
+        </div>
+        <!-- End NFTMax Admin Menu -->
+
+        <!-- Start Header -->
+        <header class="nftmax-header">
+            <div class="container">
+                <div class="row g-50">
+                    <div class="col-12">
+                        <!-- Dashboard Header -->
+                        <div class="nftmax-header__inner d-flex justify-content-between align-items-center">
+                            <!-- Left Section -->
+                            <div class="nftmax__sicon close-icon d-xl-none">
+                                <!-- <img src="img/menu-toggle.svg" alt="Menu Toggle"> -->
+                                <img src="{% static 'img/menu-toggle.svg' %}" alt="Menu Toggle">
+                            </div>
+                            <div class="nftmax-header__left">
+                                <!-- Placeholder for additional content -->
+                                <div class="nftmax-header__form">
+
+                                </div>
+                            </div>
+                            <!-- Right Section -->
+                            <div class="nftmax-header__right">
+                                <div class="nftmax-header__group d-flex align-items-center">
+                                    <!-- Author Section -->
+                                    <div class="nftmax-header__author d-flex align-items-center">
+                                        <!-- Card with icon on the left and text on the right -->
+                                        <div class=" d-flex ms-4 nftmax-card-hover" onclick="toggleDropdown()">
+                                            <div class="d-flex align-items-center p-2">
+                                                <!-- SVG Icon on the left -->
+                                                <div class="me-0 nftmax-svg hover-effect">
+                                                    <ul class="menu-bar__one">
+                                                        <li><a href="#"><span class="menu-bar__text">
+                                                                    <span class="nftmax-menu-icon nftmax-svg-icon__v10">
+                                                                        <svg class="nftmax-svg-icon" viewBox="0 0 15 20"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <path
+                                                                                d="M10.8692 11.6667H4.13085C3.03569 11.668 1.98576 12.1036 1.21136 12.878C0.436961 13.6524 0.00132319 14.7023 0 15.7975V20H15.0001V15.7975C14.9987 14.7023 14.5631 13.6524 13.7887 12.878C13.0143 12.1036 11.9644 11.668 10.8692 11.6667Z">
+                                                                            </path>
+                                                                            <path
+                                                                                d="M7.49953 10C10.261 10 12.4995 7.76145 12.4995 5.00002C12.4995 2.23858 10.261 0 7.49953 0C4.7381 0 2.49951 2.23858 2.49951 5.00002C2.49951 7.76145 4.7381 10 7.49953 10Z">
+                                                                            </path>
+                                                                        </svg>
+                                                                    </span>
+                                                                </span></a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Title Text on the right -->
+                                                <div>
+                                                    <h6 class="nftmax-header__author-title">{{ request.user.username }}
+                                                    </h6>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Dropdown Menu -->
+                                        <div id="dropdownMenu" class="dropdown-menu">
+                                            <a href="{% url 'login' %}"
+                                                class="dropdown-item d-flex justify-content-end">
+                                                <!-- Your provided logout SVG icon with margin-right and aligned to the end -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-arrow-up-left-square-fill mr-2"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm8.096 10.803L6 6.707v2.768a.5.5 0 0 1-1 0V5.5a.5.5 0 0 1 .5-.5h3.975a.5.5 0 1 1 0 1H6.707l4.096 4.096a.5.5 0 1 1-.707.707" />
+                                                </svg>
+                                                Logout
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- End Header -->
+
+        <!-- NFTmax Dashboard -->
+        <section class="nftmax-adashboard nftmax-show">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-9 col-12 nftmax-main__column">
+                        <div class="nftmax-body">
+                            <!-- Dashboard Inner -->
+                            <div class="nftmax-dsinner">
+                                <!-- Dashboard Slider -->
+
+                                <!-- End Dashboard Slider -->
+
+                                <!-- Welcome CTA -->
+
+                                <!-- End Welcome CTA -->
+
+                                <!-- Trending Action -->
+                                
+                                <!-- End Trending Action -->
+
+                                <div class="container-fluid mg-top-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Charts Two -->
+                                            <div class="charts-main mg-top-40">
+                                                <div class="trending-action">
+                                                    <h2 class="trending-action__heading" style="margin-bottom: 0;">Create User</h2>
+                                                </div>
+                                                <div class="card mt-3">
+                                                    <div class="card-body">
+                                                        <form method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="row">
+                                                                <!-- Username Field -->
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label for="username"
+                                                                            class="form-label">Username:</label>
+                                                                        <input type="text" id="username" name="username"
+                                                                            class="form-control" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- First Name Field -->
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label for="first_name" class="form-label">First
+                                                                            Name:</label>
+                                                                        <input type="text" id="first_name"
+                                                                            name="first_name" class="form-control"
+                                                                            required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Last Name Field -->
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label for="last_name" class="form-label">Last
+                                                                            Name:</label>
+                                                                        <input type="text" id="last_name"
+                                                                            name="last_name" class="form-control"
+                                                                            required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Role Field -->
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label for="role_type"
+                                                                            class="form-label">Role:</label>
+                                                                        <select id="role_type" name="role_type"
+                                                                            class="form-select" required>
+                                                                            <option value="Admin">Admin</option>
+                                                                            <option value="TL">TL</option>
+                                                                            <option value="TM">TM</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Submit Button -->
+                                                            <div class="row">
+                                                                <div class="col-12 text-end">
+                                                                    <button type="submit" class="btn text-white"
+                                                                        style="background-color:#9850f8;">Create
+                                                                        User</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SweetAlert Script -->
+                                {% if messages %}
+                                    {% for message in messages %}
+                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                                    <script>
+                                        
+                                        Swal.fire({
+                                            icon: '{% if message.tags == "error" %}error{% elif message.tags == "success" %}success{% else %}info{% endif %}',
+                                            title: '{% if message.tags == "error" %}Error{% elif message.tags == "success" %}Success{% else %}Info{% endif %}',
+                                            text: '{{ message }}',
+                                            confirmButtonColor: '#9850f8',
+                                            backdrop: false,
+                                        });
+                                    </script>
+                                    {% endfor %}
+
+                                {% endif %}
+                            
+
+                      
+
+                                <div class="container-fluid mg-top-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Charts Two -->
+                                            <div class="charts-main mg-top-40">
+                                                <div class="trending-action">
+                                                    <h2 class="trending-action__heading" style="margin-bottom: 0;">Users List</h2>
+                                                </div>
+                                                {% if user_profiles %}
+                                                <div class="card mt-3">
+                                                    <div class="card-body">
+                                                        <table class="table table-bordered" id="userTable"
+                                                            style="width: 100%; text-align: center;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>S.No</th>
+                                                                    <th>Username</th>
+                                                                    <th>First Name</th>
+                                                                    <th>Last Name</th>
+                                                                    <th>Role</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for profile in user_profiles %}
+                                                                <tr>
+                                                                    <td>{{ forloop.counter }}</td>
+                                                                    <td>{{ profile.user.username }}</td>
+                                                                    <td>{{ profile.user.first_name }}</td>
+                                                                    <td>{{ profile.user.last_name }}</td>
+                                                                    <td>{{ profile.role.role_type }}</td>
+                                                                    <td>
+                                                                        <button href="javascript:void(0)"
+                                                                        class="btn btn-warning me-2"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editUserModal"
+                                                                            data-username="{{ profile.user.username }}"
+                                                                            data-firstname="{{ profile.user.first_name }}"
+                                                                            data-lastname="{{ profile.user.last_name }}"
+                                                                            data-role-id="{{profile.role.id }}"
+                                                                            data-role="{{ profile.role.role_type }}">
+                                                                            <i class="bi bi-pencil-square"></i>
+                                                                        </button>
+
+                                                                        <button type="button"
+                                                                            class="btn btn-danger delete-user-btn"
+                                                                            data-username="{{ profile.user.username }}"
+                                                                            data-user-id="{{ profile.user.id }}">
+                                                                            <i class="bi bi-trash"></i>
+                                                                        </button>
+
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                    <p>No user profiles found.</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Structure -->
+                                <div class="modal fade" id="editUserModal" tabindex="-1"
+                                    aria-labelledby="editUserModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="editUserForm">
+                                                    {% csrf_token %}
+                                                    <div class="mb-3">
+                                                        <label for="username" class="form-label">Username</label>
+                                                        <input type="text" class="form-control" id="username"
+                                                            name="username" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="first_name" class="form-label">First Name</label>
+                                                        <input type="text" class="form-control" id="first_name"
+                                                            name="first_name">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="last_name" class="form-label">Last Name</label>
+                                                        <input type="text" class="form-control" id="last_name"
+                                                            name="last_name">
+                                                    </div>
+                                                    <input type="hidden" id="role_id" name="role_id" value="">
+
+                                                    <div class="mb-3">
+                                                        <label for="role" class="form-label">Role</label>
+                                                        <select id="role_type_edit" name="role_type_edit" class="form-control">
+                                                            <option value="" disabled>Select Role</option>
+                                                            <option value="Admin">Admin</option>
+                                                            <option value="TL">TL</option>
+                                                            <option value="TM">TM</option>
+                                                        </select>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- Centering the button -->
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn text-white"
+                                                            style="background-color:#9850f8;">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            <!-- End Dashboard Inner -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End NFTmax Dashboard -->
+
+    </div>
+
+
+
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
+
+    <script src="{% static 'jquery-migrate.js' %}"></script>
+    <script src="{% static 'slickslider.min.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable();
+        });
+
+
+
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdownMenu");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        window.onclick = function (event) {
+            var dropdown = document.getElementById("dropdownMenu");
+            if (!event.target.matches('.nftmax-card-hover') && !event.target.matches('.nftmax-card-hover *')) {
+                dropdown.style.display = "none";
+            }
+        };
+    </script>
+
+
+
+    <script>
+        let currentUsername;
+
+
+        $('#editUserModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            currentUsername = button.data('username');  
+            var firstname = button.data('firstname');
+            var lastname = button.data('lastname');
+            var role_id = button.data('role-id'); 
+            var role = button.data('role');
+            console.log(role)
+
+            var modal = $(this);
+            modal.find('#username').val(currentUsername); 
+            modal.find('#first_name').val(firstname);
+            modal.find('#last_name').val(lastname);
+            modal.find('#role_id').val(role_id);
+            modal.find('#role_type_edit').val(role);
+
+
+
+            // modal.find('#role_type_edit option').each(function () {
+            //     if ($(this).val().toLowerCase() === role.toLowerCase()) {
+
+            //         $(this).prop('selected', true);
+            //         return false; 
+            //     }
+            // });
+            console.log(modal)
+        });
+        $('#editUserForm').on('submit', function (event) {
+            event.preventDefault(); 
+
+            var formData = $(this).serialize();
+
+            var username = currentUsername;
+
+            if (!username) {
+                alert('Username is required!');
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: `/update_user/${username}/`,   
+                data: formData,
+                dataType: 'json', 
+                success: function (response) {
+                    if (response.success) {
+                        $('#editUserModal').modal('hide');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'User updated successfully!',
+                            confirmButtonColor: '#9850f8',
+                            backdrop: false,
+                        }).then(() => {
+                            location.reload();
+                        });
+
+                        var rowToUpdate = $('#userTable').find('tr').filter(function () {
+                            return $(this).find('td:nth-child(2)').text() === username;
+                        });
+                        rowToUpdate.find('td:nth-child(3)').text($('#first_name').val());
+                        rowToUpdate.find('td:nth-child(4)').text($('#last_name').val());
+                        rowToUpdate.find('td:nth-child(5)').text($('#role_type_edit option:selected').text());
+
+                    } else {
+                        $('#editUserModal').modal('hide');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.error, 
+                            confirmButtonColor: '#9850f8',
+                            backdrop: false,
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred during the update. Please try again.',
+                        confirmButtonColor: '#9850f8',
+                        backdrop: false,
+                    }).then(() => {
+                        location.reload();
+                    });
+                }
+            });
+        });
+
+        $('#editUserModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset(); 
+            $('.modal-backdrop').remove();
+        });
+
+
+
+    </script>
+<script>
+    // Delete button click event
+    document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('delete-user-btn') || event.target.closest('.delete-user-btn')) {
+            const button = event.target.closest('.delete-user-btn');
+            const username = button.getAttribute('data-username');
+            const userId = button.getAttribute('data-user-id');
+
+            Swal.fire({
+                title: `Are you sure you want to delete ${username}?`,
+                text: "This action cannot be undone.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "Cancel",
+                backdrop: false,  
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/delete-user/${userId}/`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRFToken": "{{ csrf_token }}", 
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                           
+                                location.reload();
+                          
+                        } else {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                backdrop: false 
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Something went wrong. Please try again.",
+                            icon: "error",
+                            backdrop: false  
+                        });
+                        console.error("Error deleting user:", error);
+                    });
+                } else {
+                    location.reload();
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+
+</html>

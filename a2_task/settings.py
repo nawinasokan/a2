@@ -29,6 +29,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+AUTH_USER_MODEL = 'admin_dash.User'
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -75,12 +78,36 @@ WSGI_APPLICATION = 'a2_task.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_new', 
+        'USER': 'postgres', 
+        'PASSWORD': 'postgres',
+        'HOST': '192.168.0.117', 
+        'PORT': '5432',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'a2_pro', 
+#         'USER': 'postgres', 
+#         'PASSWORD': 'postgres',
+#         'HOST': 'localhost', 
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -107,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

@@ -1,0 +1,729 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Site keywords here">
+    <meta name="description" content="#">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fav Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <!-- menuselect -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
+   
+    
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slickslider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+
+    <!-- SweetAlert CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <!-- Bootstrap DataTable CSS -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/css/dataTables.bootstrap5.min.css">
+        
+
+        <style>
+            .nftmax-header__author-title {
+                color: #8f97a1;
+            }
+    
+            .nftmax-card-hover:hover .nftmax-svg path,
+            .nftmax-card-hover:hover .nftmax-header__author-title {
+                fill: #5356FB;
+                color: #5356FB;
+            }
+    
+    
+            #dropdownMenu {
+                display: none;
+                position: absolute;
+                background-color: white;
+                border: 1px solid #5356FB;
+                top: 100%;
+                left: 0;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+                border-radius: 5px;
+                width: 110px;
+                min-width: 0;
+            }
+    
+    
+            .dropdown-menu::before {
+                content: '';
+                position: absolute;
+                top: -8px;
+                right: 10px;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 8px solid #5356FB;
+            }
+    
+    
+            #dropdownMenu a {
+                display: flex;
+                align-items: center;
+    
+            }
+    
+    
+            .bi-arrow-up-left-square-fill {
+                margin-right: 8px;
+                color: #5356FB;
+            }
+    
+            .nftmax-header__author .card {
+                background-color: #f4f4f9;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                width: auto;
+    
+            }
+    
+            .dataTables_wrapper .dataTables_paginate {
+                float: right;
+                text-align: right;
+                padding-top: 0.85em;
+    
+            }
+        </style>
+</head>
+
+<body>
+
+    <div class="body-bg">
+        <!-- NFTMax Admin Menu -->
+        <div class="nftmax-smenu">
+            <!-- Admin Menu -->
+            {% include 'sidebar/sidebar.html' %}
+            <!-- End Admin Menu -->
+        </div>
+        <!-- End NFTMax Admin Menu -->
+        <!-- Start Header -->
+        <header class="nftmax-header">
+            <div class="container">
+                <div class="row g-50">
+                    <div class="col-12">
+                        <!-- Dashboard Header -->
+                        <div class="nftmax-header__inner d-flex justify-content-between align-items-center">
+                            <!-- Left Section -->
+                            <div class="nftmax__sicon close-icon d-xl-none">
+                                <!-- <img src="img/menu-toggle.svg" alt="Menu Toggle"> -->
+                                <img src="{% static 'img/menu-toggle.svg' %}" alt="Menu Toggle">
+                            </div>
+                            <div class="nftmax-header__left">
+                                <!-- Placeholder for additional content -->
+                                <div class="nftmax-header__form">
+                                    <!-- <form class="nftmax-header__form-inner" action="#">
+                                            <button class="search-btn" type="submit">
+                                                <img src="img/search.png" alt="#">
+                                                <img src="{% static 'img/menu-toggle.svg' %}"  alt="Menu Toggle">
+
+                                            </button>
+                                            <input name="s" value="" type="text" placeholder="Search items, collections...">
+                                        </form> -->
+                                </div>
+                            </div>
+                            <!-- Right Section -->
+                            <div class="nftmax-header__right">
+                                <div class="nftmax-header__group d-flex align-items-center">
+                                    <!-- Author Section -->
+                                    <div class="nftmax-header__author d-flex align-items-center">
+                                        <!-- Card with icon on the left and text on the right -->
+                                        <div class=" d-flex ms-4 nftmax-card-hover" onclick="toggleDropdown()">
+                                            <div class="d-flex align-items-center p-2">
+                                                <!-- SVG Icon on the left -->
+                                                <div class="me-0 nftmax-svg hover-effect">
+                                                    <ul class="menu-bar__one">
+                                                        <li><a href="#"><span class="menu-bar__text">
+                                                                    <span class="nftmax-menu-icon nftmax-svg-icon__v10">
+                                                                        <svg class="nftmax-svg-icon" viewBox="0 0 15 20"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <path
+                                                                                d="M10.8692 11.6667H4.13085C3.03569 11.668 1.98576 12.1036 1.21136 12.878C0.436961 13.6524 0.00132319 14.7023 0 15.7975V20H15.0001V15.7975C14.9987 14.7023 14.5631 13.6524 13.7887 12.878C13.0143 12.1036 11.9644 11.668 10.8692 11.6667Z">
+                                                                            </path>
+                                                                            <path
+                                                                                d="M7.49953 10C10.261 10 12.4995 7.76145 12.4995 5.00002C12.4995 2.23858 10.261 0 7.49953 0C4.7381 0 2.49951 2.23858 2.49951 5.00002C2.49951 7.76145 4.7381 10 7.49953 10Z">
+                                                                            </path>
+                                                                        </svg>
+                                                                    </span>
+                                                                </span></a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Title Text on the right -->
+                                                <div>
+                                                    <h6 class="nftmax-header__author-title">{{ request.user.username }}</h6>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- Dropdown Menu -->
+                                        <div id="dropdownMenu" class="dropdown-menu">
+                                            <a href="{% url 'login' %}" class="dropdown-item d-flex justify-content-end">
+                                                <!-- Your provided logout SVG icon with margin-right and aligned to the end -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-arrow-up-left-square-fill mr-2"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm8.096 10.803L6 6.707v2.768a.5.5 0 0 1-1 0V5.5a.5.5 0 0 1 .5-.5h3.975a.5.5 0 1 1 0 1H6.707l4.096 4.096a.5.5 0 1 1-.707.707" />
+                                                </svg>
+                                                Logout
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- End Header -->
+
+        <!-- NFTmax Dashboard -->
+        <section class="nftmax-adashboard nftmax-show">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-9 col-12 nftmax-main__column">
+                        <div class="nftmax-body">
+                            <!-- Dashboard Inner -->
+                            <div class="nftmax-dsinner">
+                                <!-- Dashboard Slider -->
+
+                                <!-- End Dashboard Slider -->
+
+                                <!-- Welcome CTA -->
+
+                                <!-- End Welcome CTA -->
+
+                                <!-- Trending Action -->
+                                
+                                <!-- End Trending Action -->
+
+                                <form method="POST" action="{% url 'menu_permission' %}">
+                                    {% csrf_token %}
+                                    <div class="container-fluid mg-top-4">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="charts-main mg-top-40">
+                                                    <div class="trending-action">
+                                                        <h2 class="trending-action__heading" style="margin-bottom: 0;">Menu Permission</h2>
+                                                    </div>
+                                                    <div class="card mt-3">
+                                                        <div class="card-body">
+                                                            <div class="row">
+
+
+                                                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                                                    <label for="exampleSelectMultiple" class="form-label">Select Username(s)</label>
+                                                                    <select name="user_ids[]" id="exampleSelectMultiple" multiple required>
+                                                                        {% for user in users %}
+                                                                        <option value="{{ user.id }}">{{ user.username }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                            
+                                                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                                                    <label for="selectMenu" class="form-label">Select Menu(s)</label>
+                                                                    <select id="selectMenu" name="menu_names[]" multiple>
+                                                                        {% for item in menu_items %}
+                                                                                <option value="{{ item.url_name }}">{{ item.name }}</option>
+                                                                            {% endfor %}
+                                                                    </select>
+                                                                </div>
+<!-- 
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleSelectMultiple">Select Users:</label>
+                                                                        <select multiple class="form-control" id="exampleSelectMultiple" name="user_ids[]">
+                                                                            {% for user in users %}
+                                                                                <option value="{{ user.id }}">{{ user.username }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="selectMenu">Select Menu:</label>
+                                                                        <select multiple class="form-control" id="selectMenu" name="menu_names[]">
+                                                                            {% for item in menu_items %}
+                                                                                <option value="{{ item.url_name }}">{{ item.name }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>-->
+                                    
+                                                                <div class="d-flex justify-content-end">
+                                                                    <button type="submit" class="btn text-white" style="background-color:#9850f8;">Submit</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+
+                                <div class="container-fluid mg-top-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="charts-main mg-top-40">
+                                                <div class="trending-action">
+                                                    <h2 class="trending-action__heading" style="margin-bottom: 0;">Menu List</h2>
+                                                </div>
+                                                <div class="card mt-3">
+                                                    <div class="card-body">
+                                                        <table class="table table-bordered" id="userTable"
+                                                            style="width: 100%; text-align: center;"> <!--<-- Use Bootstrap classes for styling -->
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>S.No</th>
+                                                                    <th>Username</th>
+                                                                    <th>Menu Allocated</th>
+                                                                    <th>Allocated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for permission in permissions %}
+                                                                    <tr>
+                                                                        <td>{{ forloop.counter }}</td>
+                                                                        <td>{{ permission.username }}</td>
+                                                                        <td>{{ permission.menu_allocated }}</td>
+                                                                        <td>{{ permission.created_by }}</td> 
+                                                                        <td>
+
+
+                                                                            <button 
+                                                                            
+                                                                            class="btn btn-warning btn-sm edit-btn me-2"
+                                                                            data-username="{{ permission.username }}" 
+                                                                            data-allocated-by="{{ permission.created_by }}" 
+                                                                            data-menu="{{ permission.menu_allocated }}" 
+                                                                            data-id="{{ permission.id }}"
+                                                                            data-bs-toggle="modal" 
+                                                                            data-bs-target="#editMenuModal">
+                                                                            <i class="bi bi-pencil-square"></i>
+                                                                        </button>
+
+
+                                                                            <button class="btn btn-danger btn-sm delete-btn" data-username="{{ permission.username }}" data-id="{{ permission.id }}">
+                                                                                <i class="bi bi-trash"></i>
+                                                                            </button>
+                                                                            
+                                                                            
+
+                                                                        </td>
+                                                                     
+
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+
+                                
+
+                            </div>
+                            <!-- End Dashboard Inner -->
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Edit Menu Modal -->
+<div class="modal fade" id="editMenuModal" tabindex="-1" aria-labelledby="editMenuModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editMenuModalLabel">Edit Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editMenuForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="allocatedBy" class="form-label">Allocated By</label>
+                        <input type="text" id="allocatedBy" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Menu Allocated</label>
+                        <select id="menuAllocated" class="form-control" multiple>
+                            <!-- Options will be dynamically populated -->
+                        </select>
+                    </div>
+                    <input type="hidden" id="editPermissionId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-modal-btn" data-bs-dismiss="modal" id="closeModalAndReload">Close</button>
+                <button type="submit" class="btn text-white" style="background-color:#9850f8;" id="saveChangesBtn">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- End NFTmax Dashboard -->
+
+    </div>
+
+ 
+
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
+
+    <script src="{% static 'jquery-migrate.js' %}"></script>
+    <script src="{% static 'slickslider.min.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+    <script>
+         new MultiSelectTag('exampleSelectMultiple', {
+            rounded: true,
+            shadow: false,
+            placeholder: 'Search',
+            tagColor: {
+                textColor: '#ffffff',
+                borderColor: '#cc41fc',
+                bgColor: '#a448fc',
+            },
+            onChange: function (values) {
+                console.log(values)
+            }
+        })
+    </script>
+
+    <script>
+        new MultiSelectTag('selectMenu', {
+        rounded: true,
+        shadow: false,
+        placeholder: 'Search',
+        tagColor: {
+            textColor: '#ffffff',
+            borderColor: '#cc41fc',
+            bgColor: '#a448fc',
+        },
+        onChange: function (values) {
+            console.log(values)
+        }
+    })
+    </script>
+    <script>
+          $(document).ready(function () {
+            $('#userTable').DataTable();
+        });
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdownMenu");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        window.onclick = function (event) {
+            var dropdown = document.getElementById("dropdownMenu");
+            if (!event.target.matches('.nftmax-card-hover') && !event.target.matches('.nftmax-card-hover *')) {
+                dropdown.style.display = "none";
+            }
+        };
+    </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectBox = document.getElementById("exampleSelectMultiple");
+
+        fetch('/menu_permission/', {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch data");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.users && data.users.length > 0) {
+                selectBox.innerHTML = '';
+                data.users.forEach(user => {
+                    const option = document.createElement("option");
+                    option.value = user.id;
+                    option.textContent = user.username;
+                    selectBox.appendChild(option);
+                });
+            } else {
+                console.warn("No users found");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching usernames:", error);
+        });
+    });
+
+    </script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script>
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            // console.log('Button clicked:', this); 
+            const username = this.dataset.username; 
+            const permissionId = this.dataset.id;
+
+            console.log('Username:', username); 
+            console.log('Permission ID:', permissionId); 
+
+            if (!permissionId) {
+                console.error('Permission ID is missing or undefined.');
+                return; 
+            }
+
+            Swal.fire({
+                title: `Are you sure?`,
+                text: `Do you want to delete the menu for ${username}?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                backdrop: false,
+            }).then(result => {
+                if (result.isConfirmed) {
+                    fetch(`/delete-menu-permission/${permissionId}/`, { 
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                        
+                                location.reload();
+                        
+                        } else {
+                            Swal.fire('Error!', data.error || 'Failed to delete the menu.', 'error');
+                        }
+                    })
+                    .catch(() => {
+                        Swal.fire('Error!', 'An error occurred while processing your request.', 'error');
+                    });
+                }
+            });
+        });
+    });
+
+
+    </script>
+
+
+    <script>
+
+    // document.getElementById('closeModalAndReload').addEventListener('click', function() {
+    //     location.reload();
+    // });
+
+
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const username = this.dataset.username;
+            const allocatedBy = this.dataset.allocatedBy;
+            const menuAllocated = this.dataset.menu
+                .split(',')
+                .map(menu => menu.trim().toLowerCase().replace(/\s+/g, '_')); 
+            const permissionId = this.dataset.id;
+
+            console.log('Menu Allocated:',menuAllocated)
+            console.log('Permission_id:',permissionId)
+
+            const menuMapping = {
+                'user_creation': 'User Creation',
+                'upload': 'Upload',
+                'menu_permission': 'Menu Permission',
+                'l1_production': 'L1 Production',
+                'l2_production': 'L2 Production',
+                'l3_production': 'L3 Production',    
+                'production_report':'Production Report',
+            };
+
+            // Populate modal fields
+            document.getElementById('username').value = username;
+            document.getElementById('allocatedBy').value = allocatedBy;
+            document.getElementById('editPermissionId').value = permissionId;
+
+            // Populate multi-select dropdown
+            const menuAllocatedSelect = document.getElementById('menuAllocated');
+            menuAllocatedSelect.innerHTML = ''; 
+
+            // Get all available menu options
+            const availableMenus = Object.values(menuMapping); // ['Dashboard', 'User Creations', 'Upload', 'Menu Permission']
+
+            // Create dropdown options
+            availableMenus.forEach(menuItem => {
+                const option = document.createElement('option');
+                option.value = menuItem; // Use the display name
+                option.textContent = menuItem;
+
+                // Match backend menu names with frontend options using the mapping
+                const backendMenuName = Object.keys(menuMapping).find(
+                    key => menuMapping[key].toLowerCase() === menuItem.toLowerCase()
+                );
+
+                // Highlight selected options
+                if (menuAllocated.includes(backendMenuName)) {
+                    option.dataset.highlighted = 'true';
+                    option.style.backgroundColor = '#9850f8'; // Custom color
+                    option.style.color = 'white';
+                    option.selected = true;
+                } else {
+                    option.dataset.highlighted = 'false';
+                    option.style.backgroundColor = ''; // Default background
+                    option.style.color = ''; // Default text color
+                    option.selected = false;
+                }
+
+                menuAllocatedSelect.appendChild(option);
+            });
+
+            // Add event listener to handle selection/deselection
+            menuAllocatedSelect.addEventListener('click', function (event) {
+                const option = event.target;
+
+                if (option.tagName === 'OPTION') {
+                    if (option.dataset.highlighted === 'true') {
+                        option.dataset.highlighted = 'false';
+                        option.style.backgroundColor = ''; 
+                        option.style.color = ''; // Reset text color
+                        option.selected = false;
+                    } else {
+                        option.dataset.highlighted = 'true';
+                        option.style.backgroundColor = '#9850f8'; // Custom color
+                        option.style.color = 'white'; // White text
+                        option.selected = true;
+                    }
+                }
+
+                // Ensure consistent highlighting for all options
+                const allOptions = menuAllocatedSelect.options;
+                for (let i = 0; i < allOptions.length; i++) {
+                    if (allOptions[i].dataset.highlighted === 'true') {
+                        allOptions[i].style.backgroundColor = '#9850f8'; // Custom color
+                        allOptions[i].style.color = 'white'; // White text
+                    } else {
+                        allOptions[i].style.backgroundColor = ''; // Default background
+                        allOptions[i].style.color = ''; // Default text color
+                    }
+                }
+            });
+        });
+    });
+
+
+
+
+
+
+
+    document.getElementById('saveChangesBtn').addEventListener('click', function () {
+        const permissionId = document.getElementById('editPermissionId').value;
+        const menuAllocatedSelect = document.getElementById('menuAllocated');
+
+        if (!permissionId) {
+            console.error('Permission ID is missing.');
+            return;
+        }
+
+        // Get all selected values from the multi-select dropdown
+        const menuAllocated = Array.from(menuAllocatedSelect.selectedOptions)
+                                    .map(option => option.value);
+
+        // Send update request
+        fetch(`/update-menu-permission/${permissionId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value 
+            },
+            body: JSON.stringify({ menu_allocated: menuAllocated }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                $('#editMenuModal').modal('hide'); 
+            
+                    location.reload();
+            
+            } else {
+                Swal.fire('Error!', data.error || 'Failed to update the menu.', 'error');
+            }
+        })
+        .catch(() => {
+            Swal.fire('Error!', 'An error occurred while processing your request.', 'error');
+        });
+    });
+
+    </script>
+
+
+
+
+</body>
+
+</html>

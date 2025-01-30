@@ -1,0 +1,755 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Site keywords here">
+    <meta name="description" content="#">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fav Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slickslider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+
+
+    <style>
+        .nftmax-header__author-title {
+            color: #8f97a1;
+        }
+
+        .nftmax-card-hover:hover .nftmax-svg path,
+        .nftmax-card-hover:hover .nftmax-header__author-title {
+            fill: #5356FB;
+            color: #5356FB;
+        }
+
+
+        #dropdownMenu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #5356FB;
+            top: 100%;
+            left: 0;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            width: 110px;
+            min-width: 0;
+        }
+
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #5356FB;
+        }
+
+
+        #dropdownMenu a {
+            display: flex;
+            align-items: center;
+
+        }
+
+
+        .bi-arrow-up-left-square-fill {
+            margin-right: 8px;
+            color: #5356FB;
+        }
+
+        .nftmax-header__author .card {
+            background-color: #f4f4f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: auto;
+
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            float: right;
+            text-align: right;
+            padding-top: 0.85em;
+
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #9850f8;
+            color: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .nav-item span {
+            display: block;
+            font-weight: bold;
+        }
+
+        .nav-item span#timer,
+        .nav-item span#completed-count,
+        .nav-item span#region-span,
+        .nav-item div#accumulated-time {
+            font-weight: normal;
+            font-size: 16px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-item {
+                margin-bottom: 10px;
+            }
+        }
+        hr {
+            border: 1px solid #000; 
+            background-color: #000;  
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- <div class="body-bg" style="background-image:url('img/body-bg.jpg')"> -->
+
+    <div class="body-bg">
+        <!-- NFTMax Admin Menu -->
+        <div class="nftmax-smenu">
+            <!-- Admin Menu -->
+            {% include 'sidebar/sidebar.html' %}
+            <!-- End Admin Menu -->
+        </div>
+        <!-- End NFTMax Admin Menu -->
+
+        <!-- Logout Modal  -->
+        <!-- <div class="nftmax-preview__modal modal fade" id="logout_modal" tabindex="-1" aria-labelledby="logoutmodal" aria-hidden="true" >
+                    <div class="modal-dialog modal-dialog-centered nftmax-close__modal-close">
+                        <div class="modal-content nftmax-preview__modal-content">
+                            <div class="modal-header nftmax__modal__header">
+                                <h4 class="modal-title nftmax-preview__modal-title" id="logoutmodal">Confirm</h4>
+                                <button type="button" class="nftmax-preview__modal--close btn-close" data-bs-dismiss="modal" aria-label="Close"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36 16.16C36 17.4399 36 18.7199 36 20.0001C35.7911 20.0709 35.8636 20.2554 35.8385 20.4001C34.5321 27.9453 30.246 32.9248 22.9603 35.2822C21.9006 35.6251 20.7753 35.7657 19.6802 35.9997C18.4003 35.9997 17.1204 35.9997 15.8401 35.9997C15.5896 35.7086 15.2189 35.7732 14.9034 35.7093C7.77231 34.2621 3.08728 30.0725 0.769671 23.187C0.435002 22.1926 0.445997 21.1199 0 20.1599C0 18.7198 0 17.2798 0 15.8398C0.291376 15.6195 0.214408 15.2656 0.270759 14.9808C1.71321 7.69774 6.02611 2.99691 13.0428 0.700951C14.0118 0.383805 15.0509 0.386897 15.9999 0C17.2265 0 18.4532 0 19.6799 0C19.7156 0.124041 19.8125 0.136067 19.9225 0.146719C27.3 0.868973 33.5322 6.21922 35.3801 13.427C35.6121 14.3313 35.7945 15.2484 36 16.16ZM33.011 18.0787C33.0433 9.77105 26.3423 3.00309 18.077 2.9945C9.78479 2.98626 3.00344 9.658 2.98523 17.8426C2.96667 26.1633 9.58859 32.9601 17.7602 33.0079C26.197 33.0577 32.9787 26.4186 33.011 18.0787Z" fill="#374557" fill-opacity="0.6"></path><path d="M15.9309 18.023C13.9329 16.037 12.007 14.1207 10.0787 12.2072C9.60071 11.733 9.26398 11.2162 9.51996 10.506C9.945 9.32677 11.1954 9.0811 12.1437 10.0174C13.9067 11.7585 15.6766 13.494 17.385 15.2879C17.9108 15.8401 18.1633 15.7487 18.6375 15.258C20.3586 13.4761 22.1199 11.7327 23.8822 9.99096C24.8175 9.06632 26.1095 9.33639 26.4967 10.517C26.7286 11.2241 26.3919 11.7413 25.9133 12.2178C24.1757 13.9472 22.4477 15.6855 20.7104 17.4148C20.5228 17.6018 20.2964 17.7495 20.0466 17.9485C22.0831 19.974 24.0372 21.8992 25.9689 23.8468C26.9262 24.8119 26.6489 26.1101 25.4336 26.4987C24.712 26.7292 24.2131 26.3441 23.7455 25.8757C21.9945 24.1227 20.2232 22.3892 18.5045 20.6049C18.0698 20.1534 17.8716 20.2269 17.4802 20.6282C15.732 22.4215 13.9493 24.1807 12.1777 25.951C11.7022 26.4262 11.193 26.7471 10.4738 26.4537C9.31345 25.9798 9.06881 24.8398 9.98589 23.8952C11.285 22.5576 12.6138 21.2484 13.9387 19.9355C14.5792 19.3005 15.2399 18.6852 15.9309 18.023Z" fill="#374557" fill-opacity="0.6"></path></svg></button>
+                            </div>
+                            <div class="modal-body nftmax-modal__body modal-body nftmax-close__body">
+                                <div class="nftmax-preview__close">
+                                    <div class="nftmax-preview__close-img"><img src="img/close.png" alt="#"></div>
+                                    <h2 class="nftmax-preview__close-title">Are you sure you want to Logout <span>NETMAX admin Penal?</span></h2>
+                                    <div class="nftmax__item-button--group">
+                                        <button class="nftmax__item-button--single nftmax-btn nftmax-btn__bordered bg radius " type="submit">Yes Logout 
+                                        </button>																
+                                        <button class="nftmax__item-button--single nftmax-btn nftmax-btn__bordered--plus radius" data-bs-dismiss="modal"><span class="ntfmax__btn-textgr">Not Now</span> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+        <!-- End Logout Modal -->
+
+        <!-- Connect to Wallet -->
+
+        <!-- End Connect to Wallet -->
+
+        <!-- Start Header -->
+        <header class="nftmax-header">
+            <div class="container">
+                <div class="row g-50">
+                    <div class="col-12">
+                        <!-- Dashboard Header -->
+                        <div class="nftmax-header__inner d-flex justify-content-between align-items-center">
+                            <!-- Left Section -->
+                            <div class="nftmax__sicon close-icon d-xl-none">
+                                <!-- <img src="img/menu-toggle.svg" alt="Menu Toggle"> -->
+                                <img src="{% static 'img/menu-toggle.svg' %}" alt="Menu Toggle">
+                            </div>
+                            <div class="nftmax-header__left">
+                                <!-- Placeholder for additional content -->
+                                <div class="nftmax-header__form">
+                                    <!-- <form class="nftmax-header__form-inner" action="#">
+                                            <button class="search-btn" type="submit">
+                                                <img src="img/search.png" alt="#">
+                                                <img src="{% static 'img/menu-toggle.svg' %}"  alt="Menu Toggle">
+
+                                            </button>
+                                            <input name="s" value="" type="text" placeholder="Search items, collections...">
+                                        </form> -->
+                                </div>
+                            </div>
+                            <!-- Right Section -->
+                            <div class="nftmax-header__right">
+                                <div class="nftmax-header__group d-flex align-items-center">
+                                    <!-- Author Section -->
+                                    <div class="nftmax-header__author d-flex align-items-center">
+                                        <!-- Card with icon on the left and text on the right -->
+                                        <div class=" d-flex ms-4 nftmax-card-hover" onclick="toggleDropdown()">
+                                            <div class="d-flex align-items-center p-2">
+                                                <!-- SVG Icon on the left -->
+                                                <div class="me-0 nftmax-svg hover-effect">
+                                                    <ul class="menu-bar__one">
+                                                        <li><a href="#"><span class="menu-bar__text">
+                                                                    <span class="nftmax-menu-icon nftmax-svg-icon__v10">
+                                                                        <svg class="nftmax-svg-icon" viewBox="0 0 15 20"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <path
+                                                                                d="M10.8692 11.6667H4.13085C3.03569 11.668 1.98576 12.1036 1.21136 12.878C0.436961 13.6524 0.00132319 14.7023 0 15.7975V20H15.0001V15.7975C14.9987 14.7023 14.5631 13.6524 13.7887 12.878C13.0143 12.1036 11.9644 11.668 10.8692 11.6667Z">
+                                                                            </path>
+                                                                            <path
+                                                                                d="M7.49953 10C10.261 10 12.4995 7.76145 12.4995 5.00002C12.4995 2.23858 10.261 0 7.49953 0C4.7381 0 2.49951 2.23858 2.49951 5.00002C2.49951 7.76145 4.7381 10 7.49953 10Z">
+                                                                            </path>
+                                                                        </svg>
+                                                                    </span>
+                                                                </span></a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Title Text on the right -->
+                                                <div>
+                                                    <h6 class="nftmax-header__author-title">{{ request.user.username }}
+                                                    </h6>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Dropdown Menu -->
+                                        <div id="dropdownMenu" class="dropdown-menu">
+                                            <a href="{% url 'login' %}"
+                                                class="dropdown-item d-flex justify-content-end">
+                                                <!-- Your provided logout SVG icon with margin-right and aligned to the end -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-arrow-up-left-square-fill mr-2"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm8.096 10.803L6 6.707v2.768a.5.5 0 0 1-1 0V5.5a.5.5 0 0 1 .5-.5h3.975a.5.5 0 1 1 0 1H6.707l4.096 4.096a.5.5 0 1 1-.707.707" />
+                                                </svg>
+                                                Logout
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+
+        <!-- key_asin , candidate_asin value -->
+        <div style="display: none;">
+            <div id="key-asin-data">
+                {% if key_asin %}
+                <p value="{{ id }}" data-id="{{ id }}">{{ key_asin }}</p>
+                {% endif %}
+            </div>
+
+            <div id="customer-asin-data">
+                {% if candidate_asin %}
+                <p value="{{ candidate_asin }}">{{ candidate_asin }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <!-- NFTmax Dashboard -->
+        <section class="nftmax-adashboard nftmax-show">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-9 col-12 nftmax-main__column">
+                        <div class="nftmax-body">
+                            <!-- Dashboard Inner -->
+                            <div class="nftmax-dsinner">
+                                <!-- Dashboard Slider -->
+
+                                <!-- End Dashboard Slider -->
+
+                                <!-- Welcome CTA -->
+
+                                <!-- End Welcome CTA -->
+
+                                <!-- Trending Action -->
+                                <!-- <div class="trending-action mg-top-40">
+                                    <h2 class="trending-action__heading" style="margin-bottom: 0;">Productions</h2>
+                                </div> -->
+                                <!-- End Trending Action -->
+
+
+
+                                <div class="container-fluid mg-top-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Charts Two -->
+                                            <div class="charts-main charts-home-one mg-top-40">
+
+                                                <div class="nav-bar">
+                                                    <div class="nav-item">
+                                                        <span class="mt-3">Region</span>
+                                                        <span id="region-data">
+                                                            {% if region %}
+                                                            <p class="text-white" value="{{ region }}">{{ region }}</p>
+                                                            {% else %}
+                                                            <p>---</p>
+                                                            {% endif %}
+                                                        </span>
+
+                                                    </div>
+                                                    <div class="nav-item">
+                                                        <span>L2 Production Count</span>
+                                                        <span id="completed-count">0</span>
+                                                    </div>
+                                                    <div class="nav-item">
+                                                        <span>Total AHT of the Day</span>
+                                                        <div id="accumulated-time">00:00:00 ATH</div>
+                                                    </div>
+                                                    <div class="nav-item">
+                                                        <span>Timer</span>
+                                                        <span id="timer">00:00:00</span>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- Iframe Section -->
+                                                <div class="row mg-top-20">
+                                                    <!-- Left Iframe -->
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div>
+                                                            <span class="fw-bold">Key ASIN:</span>
+                                                            <span><a id="key-asin-link" href="#">No available
+                                                                    links</a></span>
+                                                        </div>
+                                                        <iframe id="key-asin-iframe" class="mt-2" src=""
+                                                            style="width: 100%; height: 400px; border: none;">
+                                                        </iframe>
+                                                    </div>
+
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div>
+                                                            <span class="fw-bold">Candidate ASIN:</span>
+                                                            <span><a id="candidate-asin-link" href="#">No available
+                                                                    links</a></span>
+                                                        </div>
+                                                        <iframe id="candidate-asin-iframe" class="mt-2" src=""
+                                                            style="width: 100%; height: 400px; border: none;">
+                                                        </iframe>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row nftmax-gap-30">
+                                                    <div class="col-lg-12 col-md-4 col-12 nftmax-sixth-one mt-1">
+                                                        <label for="q1">Are candidate_asin & key_asin same? *</label>
+                                                        <select id="q1" name="q1" class="form-select" required>
+                                                            <option value="">--Select--</option>
+                                                            <option value="True">True</option>
+                                                            <option value="False">False</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                        <small id="q1-error" class="text-danger"></small>
+                                                    </div>
+
+                                                    <div class="col-lg-12 col-md-4 col-12 nftmax-sixth-one mt-1">
+                                                        <label for="reason">Reason *</label>
+                                                        <select id="reason" name="reason" class="form-select" required>
+                                                            <option value="">--Select--</option>
+                                                            <option value="Similar Product">Similar Product</option>
+                                                            <option value="Different Product">Different Product</option>
+                                                            <option value="Different Category">Different Category
+                                                            </option>
+                                                            <option value="Different Category - Compliment">Different
+                                                                Category - Compliment</option>
+                                                            <option value="Page not open">Page not open</option>
+                                                            <option value="Difficult in judging">Difficult in judging
+                                                            </option>
+                                                        </select>
+                                                        <small id="reason-error" class="text-danger"></small>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-4 col-12 nftmax-sixth-one mt-1">
+                                                        <label for="comment">Comment</label>
+                                                        <textarea id="comment" name="comment" class="form-control"
+                                                            rows="3"></textarea>
+                                                        <!-- <small id="comment-error" class="text-danger"></small> -->
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <div class="d-flex justify-content-around mt-2">
+
+
+                                                        <div class="mx-2">
+                                                            <input type="hidden" name="csrfmiddlewaretoken"
+                                                                value="{{ csrf_token }}">
+                                                            <button id="submit-button"
+                                                                class="task-button btn text-white"
+                                                                style="background-color:#9850f8;">
+                                                                Submit
+                                                            </button>
+                                                        </div>
+
+
+                                                        <div class="mx-2"> <!-- Add spacing between buttons -->
+                                                            <input type="hidden" name="csrfmiddlewaretoken"
+                                                                value="{{ csrf_token }}">
+                                                            <button id="close-button" class="task-button btn text-white"
+                                                                style="background-color:#5356FB;">
+                                                                Submit and Close
+                                                            </button>
+                                                        </div>
+
+
+                                                        <div class="mx-2"> <!-- Add spacing between buttons -->
+                                                            <input type="hidden" name="csrfmiddlewaretoken"
+                                                                value="{{ csrf_token }}">
+                                                            <button id="hold-button" class="task-button btn text-white"
+                                                                style="background-color:#ff0000;">
+                                                                Hold
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+
+
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
+
+    <script src="{% static 'jquery-migrate.js' %}"></script>
+    <script src="{% static 'slickslider.min.js' %}"></script>
+
+
+
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdownMenu");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        window.onclick = function (event) {
+            var dropdown = document.getElementById("dropdownMenu");
+            if (!event.target.matches('.nftmax-card-hover') && !event.target.matches('.nftmax-card-hover *')) {
+                dropdown.style.display = "none";
+            }
+        };
+    </script>
+
+    <script>
+        let timerStarted = false;
+
+        function start_timer() {
+            if (timerStarted) return; 
+            timerStarted = true; 
+
+            let startTime_timer = 0;
+
+            function formatTime(seconds) {
+                const hours = String(Math.floor(seconds / 3600)).padStart(2, '0');
+                const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+                const secs = String(seconds % 60).padStart(2, '0');
+                return `${hours}:${minutes}:${secs}`;
+            }
+
+            function updateTimer() {
+                startTime_timer++;
+                $('#timer').text(formatTime(startTime_timer));
+            }
+            setInterval(updateTimer, 1000);
+
+        }
+    </script>
+
+
+    <script>
+        let startTime = null;
+
+        async function fetchNextRecord() {
+            try {
+                const response = await fetch('/l2_production/', {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    populateSelectBoxes(data);
+                    console.log("Fetched data:", data);
+
+                    if (data.message === 'No more records available.') {
+                        console.log('sssssssssssssssssssss')
+                        const completedCountElement = document.getElementById('completed-count');
+                        if (completedCountElement) {
+                            completedCountElement.textContent = `${data.completed_count}`;
+                        }
+
+                        const avg_time = document.getElementById('accumulated-time');
+                        if (avg_time) {
+                            avg_time.textContent = `${data.avg_time_per_task} ATH`;
+                        }
+                        showNoMoreRecordsMessage()
+                    } 
+                    else {
+                        start_timer()
+                        const send_region = data.region.toLowerCase();
+                        const send_key_asin = data.key_asin;
+                        const send_candidate_asin = data.candidate_asin;
+
+                        const key_asin_link = `https://www.amazon.co.${send_region}/dp/${send_key_asin}`;
+
+                        const candidate_asin_link = `https://www.amazon.co.${send_region}/dp/${send_candidate_asin}`;
+
+
+                        const key_iframeElement = document.getElementById('key-asin-iframe');
+                        if (key_iframeElement) {
+                            key_iframeElement.src = key_asin_link;
+                        }
+
+                        const candidate_iframeElement = document.getElementById('candidate-asin-iframe');
+                        if (candidate_iframeElement) {
+                            candidate_iframeElement.src = candidate_asin_link;
+                        }
+
+                        console.log(key_asin_link, 'aaaaaaaaaaaaaaaaaaaa', candidate_asin_link)
+
+                        const linkElement = document.getElementById('key-asin-link');
+                        if (linkElement) {
+                            linkElement.href = key_asin_link;
+                            linkElement.textContent = key_asin_link;
+                            linkElement.target = "_blank";
+                        }
+
+                        const can_linkElement = document.getElementById('candidate-asin-link');
+                        if (can_linkElement) {
+                            can_linkElement.href = candidate_asin_link;
+                            can_linkElement.textContent = candidate_asin_link;
+                            can_linkElement.target = "_blank";
+                        }
+
+
+                        const completedCountElement = document.getElementById('completed-count');
+                        if (completedCountElement) {
+                            completedCountElement.textContent = `${data.completed_count}`;
+                        }
+                        console.log(data.avg_time_per_task, 'Average daily task')
+
+                        const avg_time = document.getElementById('accumulated-time');
+                        if (avg_time) {
+                            avg_time.textContent = `${data.avg_time_per_task} ATH`;
+                        }
+
+                        startTime = new Date().toISOString();
+                        console.log("Sending start_time:", startTime);
+                    }
+
+                } else {
+                    alert("No more records available");
+                    showNoMoreRecordsMessage();
+                }
+            } catch (error) {
+                console.error('Error fetching next record:', error);
+            }
+        }
+
+        function showNoMoreRecordsMessage() {
+            document.getElementById('key-asin-data').innerHTML = '<p>---</p>';
+            document.getElementById('customer-asin-data').innerHTML = '<p>---</p>';
+            document.getElementById('region-data').innerHTML = '<p>---</p>';
+            document.getElementById('submit-button').disabled = true;
+            document.getElementById('hold-button').disabled = true;
+            document.getElementById('close-button').disabled = true;
+        }
+
+        function populateSelectBoxes(data) {
+            document.getElementById('key-asin-data').innerHTML = `<p value="${data.key_asin}" data-id="${data.id}">${data.key_asin}</p>`;
+            document.getElementById('customer-asin-data').innerHTML = `<p value="${data.candidate_asin}">${data.candidate_asin}</p>`;
+            document.getElementById('region-data').innerHTML = `<p value="${data.region}">${data.region}</p>`;
+        }
+
+        function getCSRFToken() {
+            const csrfCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+            return csrfCookie ? csrfCookie.split('=')[1] : '';
+        }
+
+        function resetForm() {
+            document.getElementById("q1").value = "";
+            document.getElementById("reason").value = "";
+            document.getElementById("comment").value = "";
+
+            document.getElementById("q1-error").textContent = "";
+            document.getElementById("reason-error").textContent = "";
+        }
+
+        let accumulatedTime = 0;
+
+        document.querySelectorAll('.task-button').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                try {
+                    const csrfToken = getCSRFToken();
+                    console.log(csrfToken)
+                    const key_data_p = document.getElementById('key-asin-data').querySelector('p');
+                    console.log(key_data_p)
+
+                    //change this seleteced option
+                    const recordId = key_data_p ? key_data_p.dataset.id : 'null';
+                    const q1 = document.getElementById('q1').value;
+                    const reason = document.getElementById('reason').value;
+                    const comment = document.getElementById('comment').value;
+
+                    console.log(q1, reason, comment, 'q1 comment reason')
+
+                    if (!recordId) {
+                        alert('No record selected!');
+                        return;
+                    }
+
+
+                    // Get error elements
+                    const q1Error = document.getElementById('q1-error');
+                    const reasonError = document.getElementById('reason-error');
+                    // const commentError = document.getElementById('comment-error');
+
+                    // Clear previous error messages
+                    q1Error.textContent = '';
+                    reasonError.textContent = '';
+                    // commentError.textContent = '';
+
+                    let isValid = true;
+
+                    // Validate fields
+                    if (!q1) {
+                        q1Error.textContent = 'Please select an option';
+                        isValid = false;
+                    }
+                    if (!reason) {
+                        reasonError.textContent = 'Please select a reason.';
+                        isValid = false;
+                    }
+                    // if (!comment) {
+                    //     commentError.textContent = 'Please enter a comment.';
+                    //     isValid = false;
+                    // }
+
+
+                    let l2_workStatus = '';
+                    let redirectToDashboard = false;
+
+                    if (event.target.id === 'hold-button') {
+                        l2_workStatus = 'Hold';
+                    } else if (event.target.id === 'submit-button') {
+                        l2_workStatus = 'Completed';
+                    } else if (event.target.id === 'close-button') {
+                        l2_workStatus = 'Completed';
+                        redirectToDashboard = true;
+                    }
+
+
+                    const payload = {
+                        id: recordId,
+                        start_time: new Date().toISOString(),
+                        l2_workstatus: l2_workStatus,
+                        q1: q1,
+                        reason: reason,
+                        comment: comment,
+                    };
+
+                    console.log('Submitting payload:', payload);
+
+                    const response = await fetch('/l2-submit-task/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken,
+                        },
+                        body: JSON.stringify({
+                            id: recordId,
+                            start_time: new Date().toISOString(),
+                            work_status: l2_workStatus,
+                            q1: q1,
+                            reason: reason,
+                            comment: comment,
+                        }),
+                    });
+
+
+                    console.log(response)
+
+                    // getting all data in payload but url redirect to csrf token
+                    if (response.ok) {
+                        const data = await response.json();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            confirmButtonText: 'OK',
+                            backdrop: false,
+
+                        });
+                        console.log(data)
+
+                        if (redirectToDashboard) {
+                            window.location.href = '/production_result/l2/';                       
+                        } else {
+                            fetchNextRecord();
+                            resetform();
+                        }
+                    } else {
+                        const errorData = await response.json();
+                        console.log(`Error www: ${errorData.message}`);
+                    }
+                } catch (error) {
+                    console.error('Error submitting task:', error);
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', fetchNextRecord);
+
+    </script>
+
+</body>
+
+</html>

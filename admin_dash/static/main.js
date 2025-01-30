@@ -2,9 +2,9 @@
     "use strict";
      $(document).on('ready', function() {	
 		
-		$('.nftmax__sicon').on( "click", function(){
-			$('.nftmax-smenu ,.nftmax-header ,.nftmax-adashboard').toggleClass('nftmax-close');
-		});	
+				  $('.nftmax__sicon').on( "click", function(){
+            $('.nftmax-smenu ,.nftmax-header ,.nftmax-adashboard').toggleClass('nftmax-close');
+        });
 		
 		/*====================================
 			Header Sticky JS
