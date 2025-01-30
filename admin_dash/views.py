@@ -1315,7 +1315,6 @@ def production_report(request):
                         calculate_time_difference(record.get('l1_production__start_time'), record.get('l1_production__end_time')),
                         record.get('l1_production__created_at', "").date() if isinstance(record.get('l1_production__created_at'), datetime) else "",
 
-
                         #l2 production 
                         record.get('l2_production__que1', ""), 
                         record.get('l2_production__que2', ""), 
