@@ -308,13 +308,17 @@
                                 </div> -->
                                 <!-- End Trending Action -->
 
+                                <div id="messagewrapper" class="container d-flex align-items-center mt-5">
+                                    <div class="col-12" >
+                                        <div id="message-container" class="p-3 text-center text-danger bg-light rounded" style="display: none; font-size: 18px;"></div>
+                                    </div>
+                                </div>
 
-
-                                <div class="container-fluid mg-top-4">
+                                <div id="maindiv" class="container-fluid mg-top-4">
                                     <div class="row">
                                         <div class="col-12">
                                             <!-- Charts Two -->
-                                            <div class="charts-main charts-home-one mg-top-40">
+                                            <div class="charts-main charts-home-one">
 
                                                 <div class="nav-bar">
                                                     <div class="nav-item">
@@ -520,20 +524,19 @@
                     console.log("Fetched data:", data);
 
                     if (data.message === 'No more records available.') {
-                        console.log('sssssssssssssssssssss')
-                        const completedCountElement = document.getElementById('completed-count');
-                        if (completedCountElement) {
-                            completedCountElement.textContent = `${data.completed_count}`;
+                        console.log(data.completed_count,'qqqqqqqqqqq')
+                        if (data.completed_count > 0){
+                            window.location.href = '/production_result/l3/';                        
                         }
-
-                        const avg_time = document.getElementById('accumulated-time');
-                        if (avg_time) {
-                            avg_time.textContent = `${data.avg_time_per_task} ATH`;
+                        else{
+                            console.log('sssssssssssssssssssss')
+                            document.getElementById("maindiv").style.display = "none";
+                            showNoMoreRecordsMessage(data.message);
                         }
-                        showNoMoreRecordsMessage()
                     } 
                     else {
                         start_timer()
+                        document.getElementById("messagewrapper").style.display="none";
                         const send_region = data.region.toLowerCase();
                         const send_key_asin = data.key_asin;
                         const send_candidate_asin = data.candidate_asin;
@@ -594,13 +597,12 @@
             }
         }
 
-        function showNoMoreRecordsMessage() {
-            document.getElementById('key-asin-data').innerHTML = '<p>---</p>';
-            document.getElementById('customer-asin-data').innerHTML = '<p>---</p>';
-            document.getElementById('region-data').innerHTML = '<p>---</p>';
-            document.getElementById('submit-button').disabled = true;
-            document.getElementById('hold-button').disabled = true;
-            document.getElementById('close-button').disabled = true;
+        function showNoMoreRecordsMessage(message) {
+            const messageDiv = document.getElementById("message-container");
+            if (messageDiv) {
+                messageDiv.innerHTML = `<span>${message}</span>`;
+                messageDiv.style.display = "block"; 
+            }
         }
 
         function populateSelectBoxes(data) {
